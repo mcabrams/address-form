@@ -1,2 +1,9 @@
 /* jshint devel:true */
-console.log('\'Allo \'Allo!');
+( function ($, window, document, undefined ) {
+  'use strict';
+
+  $( document ).ready( function () {
+    console.log('hello world');
+  });
+
+})( jQuery, window, document );
