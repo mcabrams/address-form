@@ -32,16 +32,15 @@
 
       <div class="row marketing">
         <div class="col-lg-6">
-          <h2>Address Submission Form</h2>
           <form id="theform" name="addressForm">
-            <input type="text" name="firstname" placeholder="First name">
-            <input type="text" name="lastname" placeholder="Last name">
-            <input type="text" name="lastname" placeholder="Address Line 1">
-            <input type="text" name="lastname" placeholder="Address Line 2">
-            <input type="text" name="lastname" placeholder="City">
-            <input type="text" name="lastname" placeholder="State">
-            <input type="text" name="lastname" placeholder="Zip">
-            <input id="submitButton" type="button" value="Submit" onclick="submitForm()">
+            <input type="text" name="firstname" placeholder="First name" class="form-control form-group">
+            <input type="text" name="lastname" placeholder="Last name" class="form-control form-group">
+            <input type="text" name="lastname" placeholder="Address Line 1" class="form-control form-group">
+            <input type="text" name="lastname" placeholder="Address Line 2" class="form-control form-group">
+            <input type="text" name="lastname" placeholder="City" class="form-control form-group">
+            <input type="text" name="lastname" placeholder="State" class="form-control form-group">
+            <input type="text" name="lastname" placeholder="Zip" class="form-control form-group">
+            <input id="submitButton" type="button" value="Submit" onclick="submitForm()" class="form-control form-group btn btn-primary">
           </form>
 
           <div id="addressSubmission">
@@ -52,10 +51,7 @@
             <p id="isValid">False</p>
           </div>
 
-
-
-
-          <div>
+          <div class="text-muted">
             <h2>Front End Challenge</h2>
             <h4>Two Key Goals:</h4>
             <ul>
