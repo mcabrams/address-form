@@ -25,15 +25,20 @@
         console.log(INPUT_NAME_LOOKUP[$( this ).prop('name')] + ': ' + $( this ).val());
       });
 
-      console.log(formData);
+      displayFormData(formData);
 
       event.preventDefault();
     });
 
     function displayFormData(formData) {
-      // Todo
-    }
+      var displayedUl = $( '<ul/>' );
 
+      _.each(formData, function(fieldValue ,fieldName){
+        displayedUl.append($('<li>' + INPUT_NAME_LOOKUP[fieldName] + ': ' + fieldValue + '</li>'));
+      });
+
+      $('#address-summary').append(displayedUl);
+    }
   });
 
 })( jQuery, window, document );
