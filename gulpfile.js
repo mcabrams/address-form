@@ -118,6 +118,12 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
+// inject bower components that don't specify 'main' in bower.json
+gulp.src('./app/index.html')
+  .pipe($.inject(gulp.src('./bower_components/JVFloat/jvfloat.js', {read: false}), {name: 'jvfloatjs'}))
+  .pipe($.inject(gulp.src('./bower_components/JVFloat/jvfloat.css', {read: false}), {name: 'jvfloatcss'}))
+  .pipe(gulp.dest('app'));
+
 gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });

@@ -4,6 +4,8 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "./vendor-overrides/_vendor-overrides.scss";
+
 /* Space out content a bit */
 body {
   padding-top: 20px;

@@ -4,9 +4,9 @@
   "dependencies": {
     "bootstrap-sass-official": "~3.3.1",
     "modernizr": "~2.8.1",
-    "underscore": "~1.8.2"
+    "underscore": "~1.8.2",
+    "JVFloat": "~1.1.0"
   },
   "devDependencies": {
-    "underscore": "~1.8.2"
   }
 }

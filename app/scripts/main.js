@@ -4,6 +4,8 @@
 
   $( document ).ready(function () {
 
+    onDocumentReady();
+
     var INPUT_NAME_LOOKUP = {
       'addressLine1': 'Address Line 1',
       'addressLine2': 'Address Line 2',
@@ -29,6 +31,14 @@
 
       event.preventDefault();
     });
+
+    function onDocumentReady() {
+
+      // If jvFloat is available, initialize the form
+      if ($.isFunction(jQuery.fn.jvFloat)) {
+        $('#address-form').children().jvFloat();
+      }
+    }
 
     function displayFormData(formData) {
       var displayedUl = $( '<ul/>' );
