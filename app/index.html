@@ -36,13 +36,13 @@
       <div class="row">
         <div class="col-lg-6">
           <form id="address-form"  class="address-form" name="address-form">
-            <input type="text" name="firstName" placeholder="First name" class="form-control form-group">
-            <input type="text" name="lastName" placeholder="Last name" class="form-control form-group">
-            <input type="text" name="addressLine1" placeholder="Address Line 1" class="form-control form-group">
-            <input type="text" name="addressLine2" placeholder="Address Line 2" class="form-control form-group">
-            <input type="text" name="city" placeholder="City" class="form-control form-group">
-            <input type="text" name="state" placeholder="State" class="form-control form-group">
-            <input type="text" name="zip" placeholder="Zip" class="form-control form-group">
+            <input id="first-name-input" type="text" name="firstName" placeholder="First name" class="form-control form-group">
+            <input id="last-name-input" type="text" name="lastName" placeholder="Last name" class="form-control form-group">
+            <input id="address-line1-input" type="text" name="addressLine1" placeholder="Address Line 1" class="form-control form-group">
+            <input id="address-line2-input" type="text" name="addressLine2" placeholder="Address Line 2" class="form-control form-group">
+            <input id="city-input" type="text" name="city" placeholder="City" class="form-control form-group">
+            <input id="state-input" type="text" name="state" placeholder="State" class="form-control form-group">
+            <input id="zip-input" type="text" name="zip" placeholder="Zip" class="form-control form-group">
             <input id="address-form-submit" type="submit" value="Submit" class="form-control form-group btn btn-primary">
           </form>
 
@@ -95,10 +95,10 @@
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/underscore/underscore.js"></script>
+    <!-- endbower -->
     <!-- jvfloatjs:js -->
     <script src="/bower_components/JVFloat/jvfloat.js"></script>
     <!-- endinject -->
-    <!-- endbower -->
     <!-- endbuild -->
 
 
@@ -119,6 +119,7 @@
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
         <!-- endbuild -->
 </body>
 </html>
