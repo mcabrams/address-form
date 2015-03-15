@@ -52,11 +52,11 @@
     onDocumentReady();
 
     // Form submission handler
-    $('#address-form').submit(function() {
+    $('#address-form-submit').submit(function() {
       var formData = {};
 
       // Iterate over inputs and add info to formData object
-      $( this ).find('input:not([type=submit])').each(function() {
+      $(this).find('input:not([type=submit])').each(function() {
         var $input = $( this );
         formData[$input.attr('id')] = $input.val();
       });
@@ -96,9 +96,18 @@
           fillInAddress();
         });
 
+        // Prevent form submission when hitting enter on autocomplete
+        $(autocompleteInput).keypress(function(e) {
+          if (e.which === 13) {
+            return false;
+          }
+        });
+
         function fillInAddress() {
           // Get the place details from the autocomplete object.
           var place = autocomplete.getPlace();
+
+          // $(autocompleteInput).blur();
 
           _.each(FORM_COMPONENTS, function(fieldValue, fieldName){
             if (fieldName !== 'first-name-input' && fieldName !== 'last-name-input') {
@@ -133,7 +142,9 @@
             }
           });
 
-          document.getElementById('address-line1-input').value = streetNumber + ' ' + route;
+          $('#address-line1-input').blur();
+          $('#address-line1-input').val(streetNumber + ' ' + route);
+          $('#address-line2-input').focus();
         }
       }
 
