@@ -7,6 +7,7 @@
   var FORM_COMPONENTS = require('./form-components.js');
   var googlePlacesAutocomplete = require('./google-places-autocomplete.js');
   var assignFormSubmitHandler = require('./handle-form-submit.js');
+  var assignLiveValidators = require('./assign-live-validators.js');
 
   $( document ).ready(function () {
 
@@ -21,10 +22,28 @@
 
     onDocumentReady();
     assignFormSubmitHandler('#address-form');
+    assignLiveValidators('#address-form');
   });
 })( jQuery, window, document );
 
-},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js","./google-places-autocomplete.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/google-places-autocomplete.js","./handle-form-submit.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/handle-form-submit.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js":[function(require,module,exports){
+},{"./assign-live-validators.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/assign-live-validators.js","./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js","./google-places-autocomplete.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/google-places-autocomplete.js","./handle-form-submit.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/handle-form-submit.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/assign-live-validators.js":[function(require,module,exports){
+'use strict';
+
+var FORM_COMPONENTS = require('./form-components.js');
+
+module.exports = function(formSelector) {
+  // Iterate over inputs and add info to formData object
+  $(formSelector).find('input:not([type=submit])').each(function() {
+    var $input = $( this );
+    var formComponent = _.where(FORM_COMPONENTS, {htmlId: $input.attr('id')})[0];
+
+    $input.blur(function(event) {
+      console.log( formComponent.valid(event.target.value) );
+    });
+  });
+};
+
+},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js":[function(require,module,exports){
 'use strict';
 
 var FORM_COMPONENTS = require('./form-components.js');
@@ -41,49 +60,62 @@ module.exports = function(formData) {
 
 },{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js":[function(require,module,exports){
 'use strict';
+var defaultValid = function(value) {
+  if (typeof value !== 'undefined' && value !== '') {
+    return true;
+  }
+  return false;
+};
 
 var FORM_COMPONENTS = {
   'address-line1-input': {
     textToDisplay: 'Address Line 1',
     googleType: 'street_number',
     googleNameLength: 'long_name',
-    htmlId: 'address-line1-input'
+    htmlId: 'address-line1-input',
+    valid: defaultValid
   },
   'address-line2-input': {
     textToDisplay: 'Address Line 2',
     googleType: 'subpremise',
     googleNameLength: 'long_name',
-    htmlId: 'address-line2-input'
+    htmlId: 'address-line2-input',
+    valid: defaultValid
   },
   'city-input': {
     textToDisplay: 'City',
     googleType: 'locality',
     googleNameLength: 'long_name',
-    htmlId: 'city-input'
+    htmlId: 'city-input',
+    valid: defaultValid
   },
   'first-name-input': {
     textToDisplay: 'First Name',
     googleType: null,
     googleNameLength: null,
-    htmlId: 'first-name-input'
+    htmlId: 'first-name-input',
+    valid: defaultValid
   },
   'last-name-input': {
     textToDisplay: 'Last Name',
     googleType: null,
     googleNameLength: null,
-    htmlId: 'last-name-input'
+    htmlId: 'last-name-input',
+    valid: defaultValid
   },
   'state-input': {
     textToDisplay: 'State',
     googleType: 'administrative_area_level_1',
     googleNameLength: 'short_name',
-    htmlId: 'state-input'
+    htmlId: 'state-input',
+    valid: defaultValid
   },
   'zip-input': {
     textToDisplay: 'Zip',
     googleType: 'postal_code',
     googleNameLength: 'short_name',
-    htmlId: 'zip-input'
+    htmlId: 'zip-input',
+    valid: defaultValid
   }
 };
 
@@ -176,6 +208,7 @@ module.exports = {
 },{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/handle-form-submit.js":[function(require,module,exports){
 'use strict';
 
+// var validateFormData = require('./validate-form-data.js');
 var displayFormData = require('./display-form-data.js');
 
 module.exports = function($form) {
@@ -187,6 +220,8 @@ module.exports = function($form) {
       var $input = $( this );
       formData[$input.attr('id')] = $input.val();
     });
+
+    validateFormData(formData);
 
     displayFormData(formData);
 

@@ -6,6 +6,7 @@
   var FORM_COMPONENTS = require('./form-components.js');
   var googlePlacesAutocomplete = require('./google-places-autocomplete.js');
   var assignFormSubmitHandler = require('./handle-form-submit.js');
+  var assignLiveValidators = require('./assign-live-validators.js');
 
   $( document ).ready(function () {
 
@@ -20,5 +21,6 @@
 
     onDocumentReady();
     assignFormSubmitHandler('#address-form');
+    assignLiveValidators('#address-form');
   });
 })( jQuery, window, document );
