@@ -1,54 +1,12 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./src/scripts/main.js":[function(require,module,exports){
 /* global google, _ */
 /* jshint devel:true */
 ( function ($, window, document, undefined ) {
   'use strict';
 
-  $( document ).ready(function () {
+  var FORM_COMPONENTS = require('./form-components.js');
 
-    var FORM_COMPONENTS = {
-      'address-line1-input': {
-        textToDisplay: 'Address Line 1',
-        googleType: 'street_number',
-        googleNameLength: 'long_name',
-        htmlId: 'address-line1-input'
-      },
-      'address-line2-input': {
-        textToDisplay: 'Address Line 2',
-        googleType: 'subpremise',
-        googleNameLength: 'long_name',
-        htmlId: 'address-line2-input'
-      },
-      'city-input': {
-        textToDisplay: 'City',
-        googleType: 'locality',
-        googleNameLength: 'long_name',
-        htmlId: 'city-input'
-      },
-      'first-name-input': {
-        textToDisplay: 'First Name',
-        googleType: null,
-        googleNameLength: null,
-        htmlId: 'first-name-input'
-      },
-      'last-name-input': {
-        textToDisplay: 'Last Name',
-        googleType: null,
-        googleNameLength: null,
-        htmlId: 'last-name-input'
-      },
-      'state-input': {
-        textToDisplay: 'State',
-        googleType: 'administrative_area_level_1',
-        googleNameLength: 'short_name',
-        htmlId: 'state-input'
-      },
-      'zip-input': {
-        textToDisplay: 'Zip',
-        googleType: 'postal_code',
-        googleNameLength: 'short_name',
-        htmlId: 'zip-input'
-      }
-    };
+  $( document ).ready(function () {
 
     function onDocumentReady() {
 
@@ -91,8 +49,6 @@
           // Get the place details from the autocomplete object.
           var place = autocomplete.getPlace();
 
-          // $(autocompleteInput).blur();
-
           _.each(FORM_COMPONENTS, function(fieldValue, fieldName){
             if (fieldName !== 'first-name-input' && fieldName !== 'last-name-input') {
               document.getElementById(fieldName).value = '';
@@ -127,27 +83,21 @@
           });
 
           $('#address-line1-input').blur();
-          $('#address-line1-input').val(streetNumber + ' ' + route);
+          if (typeof streetNumber !== 'undefined' && typeof route !== 'undefined') {
+            $('#address-line1-input').val(streetNumber + ' ' + route);
+          }
           $('#address-line2-input').focus();
         };
       }
 
     }
 
-    var displayFormData = function(formData) {
-      var displayedUl = $( '<ul/>' );
-
-      _.each(formData, function(fieldValue, fieldName){
-        displayedUl.append($('<li>' + FORM_COMPONENTS[fieldName].textToDisplay + ': ' + fieldValue + '</li>'));
-      });
-
-      $('#address-summary').append(displayedUl);
-    };
+    var displayFormData = require('./display-form-data.js');
 
     onDocumentReady();
 
     // Form submission handler
-    $('#address-form-submit').submit(function() {
+    $('#address-form').submit(function() {
       var formData = {};
 
       // Iterate over inputs and add info to formData object
@@ -162,3 +112,72 @@
     });
   });
 })( jQuery, window, document );
+
+},{"./display-form-data.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js","./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js":[function(require,module,exports){
+'use strict';
+
+var FORM_COMPONENTS = require('./form-components.js');
+
+module.exports = function(formData) {
+  var displayedUl = $( '<ul/>' );
+
+  _.each(formData, function(fieldValue, fieldName){
+    displayedUl.append($('<li>' + FORM_COMPONENTS[fieldName].textToDisplay + ': ' + fieldValue + '</li>'));
+  });
+
+  $('#address-summary').append(displayedUl);
+};
+
+},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js":[function(require,module,exports){
+'use strict';
+
+var FORM_COMPONENTS = {
+  'address-line1-input': {
+    textToDisplay: 'Address Line 1',
+    googleType: 'street_number',
+    googleNameLength: 'long_name',
+    htmlId: 'address-line1-input'
+  },
+  'address-line2-input': {
+    textToDisplay: 'Address Line 2',
+    googleType: 'subpremise',
+    googleNameLength: 'long_name',
+    htmlId: 'address-line2-input'
+  },
+  'city-input': {
+    textToDisplay: 'City',
+    googleType: 'locality',
+    googleNameLength: 'long_name',
+    htmlId: 'city-input'
+  },
+  'first-name-input': {
+    textToDisplay: 'First Name',
+    googleType: null,
+    googleNameLength: null,
+    htmlId: 'first-name-input'
+  },
+  'last-name-input': {
+    textToDisplay: 'Last Name',
+    googleType: null,
+    googleNameLength: null,
+    htmlId: 'last-name-input'
+  },
+  'state-input': {
+    textToDisplay: 'State',
+    googleType: 'administrative_area_level_1',
+    googleNameLength: 'short_name',
+    htmlId: 'state-input'
+  },
+  'zip-input': {
+    textToDisplay: 'Zip',
+    googleType: 'postal_code',
+    googleNameLength: 'short_name',
+    htmlId: 'zip-input'
+  }
+};
+
+module.exports = FORM_COMPONENTS;
+
+},{}]},{},["./src/scripts/main.js"]);
+
+//# sourceMappingURL=bundle.js.map
