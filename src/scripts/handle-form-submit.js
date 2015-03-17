@@ -13,7 +13,7 @@ module.exports = function($form) {
       formData[$input.attr('id')] = $input.val();
     });
 
-    validateFormData(formData);
+    // validateFormData(formData);
 
     displayFormData(formData);
 

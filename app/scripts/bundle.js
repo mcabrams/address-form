@@ -14,7 +14,7 @@
     function onDocumentReady() {
       // If jvFloat is available, initialize the fields with it
       if ($.isFunction(jQuery.fn.jvFloat)) {
-        $('#address-form').children().jvFloat();
+        $('#address-form').children().children().jvFloat();
       }
 
       googlePlacesAutocomplete.setupGoogleMaps();
@@ -29,21 +29,23 @@
 },{"./assign-live-validators.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/assign-live-validators.js","./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js","./google-places-autocomplete.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/google-places-autocomplete.js","./handle-form-submit.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/handle-form-submit.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/assign-live-validators.js":[function(require,module,exports){
 'use strict';
 
-var FORM_COMPONENTS = require('./form-components.js');
+var validateInput = require('./validate-input.js');
+
+var inputBlurCallback = function(event) {
+  var $input = $( event.target );
+  validateInput($input);
+};
 
 module.exports = function(formSelector) {
   // Iterate over inputs and add info to formData object
   $(formSelector).find('input:not([type=submit])').each(function() {
     var $input = $( this );
-    var formComponent = _.where(FORM_COMPONENTS, {htmlId: $input.attr('id')})[0];
 
-    $input.blur(function(event) {
-      console.log( formComponent.valid(event.target.value) );
-    });
+    $input.blur(inputBlurCallback);
   });
 };
 
-},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js":[function(require,module,exports){
+},{"./validate-input.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/validate-input.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js":[function(require,module,exports){
 'use strict';
 
 var FORM_COMPONENTS = require('./form-components.js');
@@ -126,6 +128,7 @@ module.exports = FORM_COMPONENTS;
 'use strict';
 
 var FORM_COMPONENTS = require('./form-components.js');
+var validateInput = require('./validate-input.js');
 
 var fillInAddress = function(autocomplete) {
   // Get the place details from the autocomplete object.
@@ -160,14 +163,19 @@ var fillInAddress = function(autocomplete) {
 
     if (typeof addressInfoLookup !== 'undefined') {
       var val = addressComponent[addressInfoLookup.googleNameLength];
-      document.getElementById(addressInfoLookup.htmlId).value = val;
+      var $input = $('#' + addressInfoLookup.htmlId);
+      $input.val(val);
+      validateInput($input);
     }
   });
 
-  $('#address-line1-input').blur();
+  var $addressLine1Input = $('#address-line1-input');
+
+  $addressLine1Input.blur();
   if (typeof streetNumber !== 'undefined' && typeof route !== 'undefined') {
-    $('#address-line1-input').val(streetNumber + ' ' + route);
+    $addressLine1Input.val(streetNumber + ' ' + route);
   }
+  validateInput($addressLine1Input);
   $('#address-line2-input').focus();
 };
 
@@ -205,7 +213,7 @@ module.exports = {
   fillInAddress: fillInAddress
 };
 
-},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/handle-form-submit.js":[function(require,module,exports){
+},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js","./validate-input.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/validate-input.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/handle-form-submit.js":[function(require,module,exports){
 'use strict';
 
 // var validateFormData = require('./validate-form-data.js');
@@ -221,7 +229,7 @@ module.exports = function($form) {
       formData[$input.attr('id')] = $input.val();
     });
 
-    validateFormData(formData);
+    // validateFormData(formData);
 
     displayFormData(formData);
 
@@ -229,6 +237,23 @@ module.exports = function($form) {
   });
 };
 
-},{"./display-form-data.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js"}]},{},["./src/scripts/main.js"]);
+},{"./display-form-data.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/display-form-data.js"}],"/Users/matthewabrams/git/personal/address-form/src/scripts/validate-input.js":[function(require,module,exports){
+var FORM_COMPONENTS = require('./form-components.js');
+
+module.exports = function($input) {
+  var formComponent = _.where(FORM_COMPONENTS, {htmlId: $input.attr('id')})[0];
+  var validateMethod = formComponent.valid;
+  var valid = validateMethod($input.val());
+
+  if (valid) {
+    $input.parent().addClass('has-success');
+    $input.parent().removeClass('has-error');
+  } else {
+    $input.parent().addClass('has-error');
+    $input.parent().removeClass('has-success');
+  }
+};
+
+},{"./form-components.js":"/Users/matthewabrams/git/personal/address-form/src/scripts/form-components.js"}]},{},["./src/scripts/main.js"]);
 
 //# sourceMappingURL=bundle.js.map

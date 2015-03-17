@@ -2,6 +2,7 @@
 'use strict';
 
 var FORM_COMPONENTS = require('./form-components.js');
+var validateInput = require('./validate-input.js');
 
 var fillInAddress = function(autocomplete) {
   // Get the place details from the autocomplete object.
@@ -36,14 +37,19 @@ var fillInAddress = function(autocomplete) {
 
     if (typeof addressInfoLookup !== 'undefined') {
       var val = addressComponent[addressInfoLookup.googleNameLength];
-      document.getElementById(addressInfoLookup.htmlId).value = val;
+      var $input = $('#' + addressInfoLookup.htmlId);
+      $input.val(val);
+      validateInput($input);
     }
   });
 
-  $('#address-line1-input').blur();
+  var $addressLine1Input = $('#address-line1-input');
+
+  $addressLine1Input.blur();
   if (typeof streetNumber !== 'undefined' && typeof route !== 'undefined') {
-    $('#address-line1-input').val(streetNumber + ' ' + route);
+    $addressLine1Input.val(streetNumber + ' ' + route);
   }
+  validateInput($addressLine1Input);
   $('#address-line2-input').focus();
 };
 
