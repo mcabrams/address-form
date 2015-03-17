@@ -3,6 +3,7 @@
 
 var FORM_COMPONENTS = require('./form-components.js');
 var validateInput = require('./validate-input.js');
+var activateInput = require('./activate-input.js');
 
 var fillInAddress = function(autocomplete) {
   // Get the place details from the autocomplete object.
@@ -39,6 +40,9 @@ var fillInAddress = function(autocomplete) {
       var val = addressComponent[addressInfoLookup.googleNameLength];
       var $input = $('#' + addressInfoLookup.htmlId);
       $input.val(val);
+
+      // TODO: Add check to make sure input changed before activating
+      activateInput($input);
       validateInput($input);
     }
   });
@@ -48,6 +52,7 @@ var fillInAddress = function(autocomplete) {
   $addressLine1Input.blur();
   if (typeof streetNumber !== 'undefined' && typeof route !== 'undefined') {
     $addressLine1Input.val(streetNumber + ' ' + route);
+    activateInput($addressLine1Input);
   }
   validateInput($addressLine1Input);
   $('#address-line2-input').focus();

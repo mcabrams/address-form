@@ -1,6 +1,6 @@
 'use strict';
 
-// var validateFormData = require('./validate-form-data.js');
+var validateFormData = require('./validate-form-data.js');
 var displayFormData = require('./display-form-data.js');
 
 module.exports = function($form) {
@@ -13,9 +13,9 @@ module.exports = function($form) {
       formData[$input.attr('id')] = $input.val();
     });
 
-    // validateFormData(formData);
-
-    displayFormData(formData);
+    if ( validateFormData(formData) ) {
+      displayFormData(formData);
+    }
 
     event.preventDefault();
   });

@@ -1,4 +1,5 @@
 $icon-font-path: '../fonts/';
+$grid-gutter-width: 20px;
 
 // bower:scss
 @import "bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
@@ -20,8 +21,8 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 30px;
 
-  /* Make the masthead heading the same height as the navigation */
   h3 {
     margin-top: 0;
     margin-bottom: 0;
@@ -36,6 +37,18 @@ body {
 
 .address-form {
   margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.address-form-submit {
+  width: 100%;
+  display: block;
+}
+
+.address-form-submit-status {
+  margin-top: 28px;
+  padding: 15px;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -50,15 +63,5 @@ body {
   .footer {
     padding-left: 0;
     padding-right: 0;
-  }
-
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
   }
 }

@@ -13,7 +13,7 @@
     function onDocumentReady() {
       // If jvFloat is available, initialize the fields with it
       if ($.isFunction(jQuery.fn.jvFloat)) {
-        $('#address-form').children().children().jvFloat();
+        $('#address-form').find('input').jvFloat();
       }
 
       googlePlacesAutocomplete.setupGoogleMaps();

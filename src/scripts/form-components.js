@@ -1,9 +1,17 @@
 'use strict';
+
 var defaultValid = function(value) {
   if (typeof value !== 'undefined' && value !== '') {
-    return true;
+    return {
+      valid: "yes",
+      message: ""
+    }
+  } else {
+    return {
+      valid: "no",
+      message: ""
+    }
   }
-  return false;
 };
 
 var FORM_COMPONENTS = {
@@ -19,7 +27,19 @@ var FORM_COMPONENTS = {
     googleType: 'subpremise',
     googleNameLength: 'long_name',
     htmlId: 'address-line2-input',
-    valid: defaultValid
+    valid: function(value) {
+      if (typeof value !== 'undefined' && value !== '') {
+        return {
+          valid: "yes",
+          message: ""
+        }
+      } else {
+        return {
+          valid: "maybe",
+          message: ""
+        }
+      }
+    }
   },
   'city-input': {
     textToDisplay: 'City',

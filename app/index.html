@@ -32,30 +32,53 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-9">
           <form id="address-form"  class="address-form" name="address-form">
-            <div class="form-group">
-              <input id="first-name-input" type="text" name="firstName" placeholder="First name" class="form-control">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input id="first-name-input" type="text" name="firstName" placeholder="First Name" class="form-control input-lg">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input id="last-name-input" type="text" name="lastName" placeholder="Last Name" class="form-control input-lg">
+                </div>
+              </div>
             </div>
             <div class="form-group">
-              <input id="last-name-input" type="text" name="lastName" placeholder="Last name" class="form-control">
+              <input id="address-line1-input" type="text" name="addressLine1" placeholder="Address Line 1" class="form-control input-lg">
             </div>
             <div class="form-group">
-              <input id="address-line1-input" type="text" name="addressLine1" placeholder="Address Line 1" class="form-control">
+              <input id="address-line2-input" type="text" name="addressLine2" placeholder="Address Line 2" class="form-control input-lg">
             </div>
-            <div class="form-group">
-              <input id="address-line2-input" type="text" name="addressLine2" placeholder="Address Line 2" class="form-control">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <input id="city-input" type="text" name="city" placeholder="City" class="form-control input-lg">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <input id="state-input" type="text" name="state" placeholder="State" class="form-control input-lg">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input id="zip-input" type="text" name="zip" placeholder="Zip" class="form-control input-lg">
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <input id="city-input" type="text" name="city" placeholder="City" class="form-control">
+            <div class="row">
+              <div class="col-md-12">
+                <input id="address-form-submit" type="submit" value="Submit" class="address-form-submit btn btn-primary btn-lg">
+              </div>
             </div>
-            <div class="form-group">
-              <input id="state-input" type="text" name="state" placeholder="State" class="form-control">
+            <div class="row">
+              <div class="col-md-12">
+                <p id="address-form-submit-status" class="address-form-submit-status bg-danger hide">Looks like this address is incorrect. Can you double check it?</p>
+              </div>
             </div>
-            <div class="form-group">
-              <input id="zip-input" type="text" name="zip" placeholder="Zip" class="form-control">
-            </div>
-            <input id="address-form-submit" type="submit" value="Submit" class="form-control form-group btn btn-primary">
           </form>
 
           <div id="address-summary">
