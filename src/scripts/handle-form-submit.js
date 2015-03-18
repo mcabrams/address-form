@@ -1,10 +1,10 @@
 'use strict';
 
 var validateFormData = require('./validate-form-data.js');
-var displayFormData = require('./display-form-data.js');
 
-module.exports = function($form) {
-  $($form).submit(function() {
+module.exports = function(form) {
+
+  var handleSubmit = function() {
     var formData = {};
 
     // Iterate over inputs and add info to formData object
@@ -13,10 +13,10 @@ module.exports = function($form) {
       formData[$input.attr('id')] = $input.val();
     });
 
-    if ( validateFormData(formData) ) {
-      displayFormData(formData);
-    }
+    validateFormData(form, formData);
 
     event.preventDefault();
-  });
+  }
+
+  $(form).on("submit", handleSubmit);
 };

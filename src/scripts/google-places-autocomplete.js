@@ -61,13 +61,8 @@ var fillInAddress = function(autocomplete) {
 var setupGoogleMaps = function() {
   var autocompleteInput = document.getElementById('address-line1-input');
 
-  var northAmericaBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(83.162102, -52.233040),
-      new google.maps.LatLng(5.499550, -167.276413)
-    );
-
   var options = {
-    bounds: northAmericaBounds,
+    componentRestrictions: {country: "us"},
     types: ['geocode']
   };
 
